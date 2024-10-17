@@ -36,7 +36,7 @@ export default function SignIn() {
 	};
 
 	const handleGoogleSignIn = async () => {
-		await signIn('google', { callbackUrl: '/' });
+		await signIn('google', { callbackUrl: '/dashboard' });
 	};
 
 	const handleSignOut = async () => {
