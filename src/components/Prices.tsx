@@ -4,6 +4,30 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Sparkles, Bot, Zap } from 'lucide-react';
 
 export default function Prices() {
+	const plans = [
+		{
+			title: 'Starter',
+			price: '$29',
+			description: 'Perfect for small businesses and startups',
+			features: ['100 AI queries/month', 'Basic analytics', 'Email support'],
+			icon: <Bot className="h-6 w-6" />,
+		},
+		{
+			title: 'Pro',
+			price: '$99',
+			description: 'Ideal for growing businesses',
+			features: ['1000 AI queries/month', 'Advanced analytics', 'Priority support', 'Custom integrations'],
+			icon: <Zap className="h-6 w-6" />,
+		},
+		{
+			title: 'Enterprise',
+			price: 'Custom',
+			description: 'For large-scale operations',
+			features: ['Unlimited AI queries', 'Real-time analytics', '24/7 premium support', 'Dedicated account manager'],
+			icon: <Sparkles className="h-6 w-6" />,
+		},
+	];
+    
 	return (
 		<section className="w-full py-12 md:py-24 lg:py-32 bg-gray-100 dark:bg-gray-800 px-4 md:px-6 lg:px-8">
 			<div className="container mx-auto max-w-6xl">
@@ -12,39 +36,7 @@ export default function Prices() {
 					Choose the perfect plan for your business needs
 				</p>
 				<div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:gap-8">
-					{[
-						{
-							title: 'Starter',
-							price: '$29',
-							description: 'Perfect for small businesses and startups',
-							features: ['100 AI queries/month', 'Basic analytics', 'Email support'],
-							icon: <Bot className="h-6 w-6" />,
-						},
-						{
-							title: 'Pro',
-							price: '$99',
-							description: 'Ideal for growing businesses',
-							features: [
-								'1000 AI queries/month',
-								'Advanced analytics',
-								'Priority support',
-								'Custom integrations',
-							],
-							icon: <Zap className="h-6 w-6" />,
-						},
-						{
-							title: 'Enterprise',
-							price: 'Custom',
-							description: 'For large-scale operations',
-							features: [
-								'Unlimited AI queries',
-								'Real-time analytics',
-								'24/7 premium support',
-								'Dedicated account manager',
-							],
-							icon: <Sparkles className="h-6 w-6" />,
-						},
-					].map((plan) => (
+					{plans.map((plan) => (
 						<Card key={plan.title} className="flex flex-col">
 							<CardHeader>
 								<div className="flex items-center justify-center w-12 h-12 rounded-full bg-primary/10 mb-4">
