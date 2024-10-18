@@ -99,9 +99,8 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
 									<span className="sr-only">Acme Inc</span>
 								</Link>
 								{navigationItems.map((item) => (
-									<SheetClose asChild>
+									<SheetClose asChild key={item.label}>
 										<Link
-											key={item.label}
 											href={item.href}
 											className={`mx-[-0.65rem] flex items-center gap-4 rounded-xl px-3 py-2 text-muted-foreground hover:text-foreground ${
 												pathname === item.href ? 'bg-muted text-primary' : 'text-muted-foreground'

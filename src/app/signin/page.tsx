@@ -28,7 +28,6 @@ export default function SignIn() {
 				.then((data) => setUserData(data));
 		}
 	}, [session]);
-	console.log('userData', session, userData);
 
 	const handleEmailSignIn = async (e: React.FormEvent) => {
 		e.preventDefault();
