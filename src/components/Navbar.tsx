@@ -1,11 +1,12 @@
-'use client';
-
 import React from 'react';
 import Link from 'next/link';
 import { Sparkles } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { auth } from '../auth';
 
-export default function Navbar() {
+export default async function Navbar() {
+	const session = await auth();
+
 	return (
 		<header className="lg:container lg:mx-auto lg:px-6 px-4 h-14 flex items-center">
 			<Link className="flex items-center justify-center" href="#">
@@ -24,7 +25,7 @@ export default function Navbar() {
 				</Link>
 			</nav>
 			<Button className="ml-4" size="sm">
-				<Link href="/signin">Sign In</Link>
+				{session?.user ? <Link href="/dashboard">Dashboard</Link> : <Link href="/signin">Sign In</Link>}
 			</Button>
 		</header>
 	);
