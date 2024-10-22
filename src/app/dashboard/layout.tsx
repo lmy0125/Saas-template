@@ -1,9 +1,8 @@
-'use client';
 import { ReactNode } from 'react';
-import { usePathname } from 'next/navigation';
 import Link from 'next/link';
-import { Bell, CircleUser, Home, LineChart, Menu, Package, Package2, Search, ShoppingCart, Users } from 'lucide-react';
-import { Badge } from '@/components/ui/badge';
+import { auth } from '@/auth';
+import { redirect } from 'next/navigation';
+import { Bell, CircleUser, Menu, Package2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import {
@@ -14,25 +13,26 @@ import {
 	DropdownMenuSeparator,
 	DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { signOut } from 'next-auth/react';
-import { Input } from '@/components/ui/input';
 import { Sheet, SheetContent, SheetTrigger, SheetClose } from '@/components/ui/sheet';
+import NavItems from '@/components/NavItems';
+import { SidebarProvider, SidebarTrigger } from '@/components/ui/sidebar';
+import Sidebar from '@/components/Sidebar';
 
-const navigationItems = [
-	{ href: '/dashboard', icon: Home, label: 'Dashboard' },
-	{ href: '/dashboard/a', icon: ShoppingCart, label: 'Orders', badge: 6 },
-	{ href: '/dashboard/b', icon: Package, label: 'Products' },
-	{ href: '/dashboard/c', icon: Users, label: 'Customers' },
-];
-
-const handleLogout = () => {
-	signOut({ callbackUrl: '/' });
-};
-
-export default function DashboardLayout({ children }: { children: ReactNode }) {
-	const pathname = usePathname();
+export default async function DashboardLayout({ children }: { children: ReactNode }) {
+	const session = await auth();
+	if (!session) {
+		redirect('/');
+	}
 
 	return (
+		// <SidebarProvider>
+		// 	<Sidebar />
+		// 	<main>
+		// 		<SidebarTrigger />
+		// 		{children}
+		// 	</main>
+		// </SidebarProvider>
+
 		<div className="grid min-h-screen w-full md:grid-cols-[220px_1fr] lg:grid-cols-[280px_1fr]">
 			<div className="hidden border-r bg-muted/40 md:block">
 				<div className="flex h-full max-h-screen flex-col gap-2">
@@ -47,24 +47,7 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
 						</Button>
 					</div>
 					<div className="flex-1">
-						<nav className="grid items-start px-2 text-sm font-medium lg:px-4">
-							{navigationItems.map((item) => (
-								<Link
-									key={item.label}
-									href={item.href}
-									className={`flex items-center gap-3 rounded-lg px-3 py-2 transition-all hover:text-primary ${
-										pathname === item.href ? 'bg-muted text-primary' : 'text-muted-foreground'
-									}`}>
-									<item.icon className="h-4 w-4" />
-									{item.label}
-									{item.badge && (
-										<Badge className="ml-auto flex h-6 w-6 shrink-0 items-center justify-center rounded-full">
-											{item.badge}
-										</Badge>
-									)}
-								</Link>
-							))}
-						</nav>
+						<NavItems />
 					</div>
 					<div className="mt-auto p-4">
 						<Card x-chunk="dashboard-02-chunk-0">
@@ -93,29 +76,7 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
 							</Button>
 						</SheetTrigger>
 						<SheetContent side="left" className="flex flex-col bg-white">
-							<nav className="grid gap-2 text-lg font-medium">
-								<Link href="#" className="flex items-center gap-2 text-lg font-semibold">
-									<Package2 className="h-6 w-6" />
-									<span className="sr-only">Acme Inc</span>
-								</Link>
-								{navigationItems.map((item) => (
-									<SheetClose asChild key={item.label}>
-										<Link
-											href={item.href}
-											className={`mx-[-0.65rem] flex items-center gap-4 rounded-xl px-3 py-2 text-muted-foreground hover:text-foreground ${
-												pathname === item.href ? 'bg-muted text-primary' : 'text-muted-foreground'
-											}`}>
-											<item.icon className="h-5 w-5" />
-											{item.label}
-											{item.badge && (
-												<Badge className="ml-auto flex h-6 w-6 shrink-0 items-center justify-center rounded-full">
-													{item.badge}
-												</Badge>
-											)}
-										</Link>
-									</SheetClose>
-								))}
-							</nav>
+							<NavItems mobile />
 							<div className="mt-auto">
 								<Card>
 									<CardHeader>
@@ -147,7 +108,7 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
 								<DropdownMenuItem>Settings</DropdownMenuItem>
 								<DropdownMenuItem>Support</DropdownMenuItem>
 								<DropdownMenuSeparator />
-								<DropdownMenuItem onClick={handleLogout}>Logout</DropdownMenuItem>
+								{/* <DropdownMenuItem onClick={handleSignOut}>Logout</DropdownMenuItem> */}
 							</DropdownMenuContent>
 						</DropdownMenu>
 					</div>
