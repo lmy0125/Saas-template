@@ -34,7 +34,7 @@ export default function PriceCard({
 			// Redirect to login page
 			router.push('/signin');
 		} else {
-			const stripe = await loadStripe(process.env.NEXT_PUBLIC_STRIPE_TEST_MODE_PUBLIC_KEY as string);
+			const stripe = await loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY as string);
 			if (!stripe) {
 				return;
 			}

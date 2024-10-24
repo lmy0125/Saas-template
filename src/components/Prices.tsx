@@ -7,12 +7,12 @@ import PriceCard from '@/components/PriceCard';
 export default function Prices() {
 	const plans = [
 		{
-			title: 'Starter',
+			title: 'Plus',
 			price: '$29',
 			description: 'Perfect for small businesses and startups',
 			features: ['100 AI queries/month', 'Basic analytics', 'Email support'],
 			icon: <Bot className="h-6 w-6" />,
-			priceId: 'price_1Pz1lN03uGFAC1Mkg0uUwbTh',
+			priceId: process.env.NEXT_PUBLIC_SubScription_Plus!,
 		},
 		{
 			title: 'Pro',
@@ -20,15 +20,15 @@ export default function Prices() {
 			description: 'Ideal for growing businesses',
 			features: ['1000 AI queries/month', 'Advanced analytics', 'Priority support', 'Custom integrations'],
 			icon: <Zap className="h-6 w-6" />,
-			priceId: 'price_1Pz1lN03uGFAC1Mkg0uUwbTh',
+			priceId: process.env.NEXT_PUBLIC_SubScription_Pro!,
 		},
 		{
-			title: 'Enterprise',
+			title: 'Ultimate',
 			price: 'Custom',
 			description: 'For large-scale operations',
 			features: ['Unlimited AI queries', 'Real-time analytics', '24/7 premium support', 'Dedicated account manager'],
 			icon: <Sparkles className="h-6 w-6" />,
-			priceId: 'price_1Pz1lN03uGFAC1Mkg0uUwbTh',
+			priceId: process.env.NEXT_PUBLIC_SubScription_Ultimate!,
 		},
 	];
 
